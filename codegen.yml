@@ -1,0 +1,14 @@
+overwrite: true
+schema: "./src/scheme.graphql"
+documents: "src/**/*.graphql"
+generates:
+  src/api/types-and-hooks.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query:
+          importBaseApiFrom: 'src/app/api/baseApi'
+          exportHooks: trues
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
