@@ -13,7 +13,7 @@ function authRequestInterceptor(config) {
   config.headers.Accept = 'application/json';
   return config;
 }
-
+console.log(import.meta.env);
 export const axios = Axios.create({
   // baseURL: API_URL,
   baseURL: import.meta.env.CANONIC_URL,
@@ -37,7 +37,7 @@ axios.interceptors.response.use(
 );
 
 export const axiosGQL = (query, variables) => {
-  axios.post(endpoint, {
+  axios.post('', {
     query,
     variables,
   });
