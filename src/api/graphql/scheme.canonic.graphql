@@ -1,0 +1,158 @@
+type App {
+  _id: String!
+  createdAt: Date
+  updatedAt: Date
+  lastResolve: Date
+}
+
+input AppInput {
+  lastResolve: Date
+  _id: ID
+}
+
+type Bank {
+  _id: String!
+  createdAt: Date
+  updatedAt: Date
+  points: Float
+  special: [BankSpecial]
+}
+
+input BankInput {
+  points: Float
+  special: [BankSpecialInput]
+  _id: ID
+}
+
+type BankSpecial {
+  _id: ID
+  pizza: Float
+}
+
+input BankSpecialInput {
+  pizza: Float
+  _id: ID
+}
+
+scalar Date
+
+type Mutation {
+  _INTERNAL: Mutation_INTERNAL
+  createStreak(input: StreakInput): Streak
+  updateStreak(_id: ID!, input: StreakInput): Streak
+  deleteStreak(_id: ID!): Streak
+  updateApp(input: AppInput): App
+  createReward(input: RewardInput): Reward
+  updateReward(_id: ID!, input: RewardInput): Reward
+  deleteReward(_id: ID!): Reward
+  createTask(input: TaskInput): Task
+  updateTask(_id: ID!, input: TaskInput): Task
+  deleteTask(_id: ID!): Task
+  updateBank(input: BankInput): Bank
+}
+
+type Mutation_INTERNAL {
+  createTask(input: TaskInput): Task
+  updateTask(_id: ID!, input: TaskInput): Task
+  deleteTask(_id: ID!): Task
+  createStreak(input: StreakInput): Streak
+  updateStreak(_id: ID!, input: StreakInput): Streak
+  deleteStreak(_id: ID!): Streak
+  updateBank(input: BankInput): Bank
+  updateApp(input: AppInput): App
+  createReward(input: RewardInput): Reward
+  updateReward(_id: ID!, input: RewardInput): Reward
+  deleteReward(_id: ID!): Reward
+}
+
+type PickerOption {
+  label: String
+  value: String
+}
+
+input PickerOptionInput {
+  label: String
+  value: String
+  _id: ID
+}
+
+type Query {
+  _INTERNAL: Query_INTERNAL
+  streaks: [Streak]
+  streak(_id: ID!): Streak
+  app: App
+  rewards: [Reward]
+  reward(_id: ID!): Reward
+  tasks: [Task]
+  task(_id: ID!): Task
+  bank: Bank
+}
+
+type Query_INTERNAL {
+  task(_id: ID!): Task
+  tasks: [Task]
+  streak(_id: ID!): Streak
+  streaks: [Streak]
+  bank: Bank
+  app: App
+  reward(_id: ID!): Reward
+  rewards: [Reward]
+}
+
+type Reward {
+  _id: String
+  createdAt: Date
+  updatedAt: Date
+  name: String!
+  value: Float
+}
+
+input RewardInput {
+  name: String!
+  value: Float
+  _id: ID
+}
+
+type Streak {
+  _id: String!
+  createdAt: Date
+  updatedAt: Date
+  streakIterations: Float
+  currentStreakIndex: Float
+}
+
+input StreakInput {
+  streakIterations: Float
+  currentStreakIndex: Float
+  _id: ID
+}
+
+type Task {
+  _id: String
+  createdAt: Date
+  updatedAt: Date
+  status: PickerOption
+  task: String!
+  streak: Streak
+  value: Float
+  tags: [TaskTag]
+}
+
+input TaskInput {
+  status: PickerOptionInput
+  task: String!
+  streak: ID
+  value: Float
+  tags: [TaskTagInput]
+  _id: ID
+}
+
+type TaskTag {
+  _id: ID
+  text: String
+}
+
+input TaskTagInput {
+  text: String
+  _id: ID
+}
