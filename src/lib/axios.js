@@ -10,13 +10,14 @@ function authRequestInterceptor(config) {
   if (token) {
     config.headers.authorization = `${token}`;
   }
+  config.headers['Access-Control-Allow-Origin'] = '*';
   config.headers.Accept = 'application/json';
   return config;
 }
-console.log(import.meta.env);
+
 export const axios = Axios.create({
   // baseURL: API_URL,
-  baseURL: import.meta.env.CANONIC_URL,
+  baseURL: import.meta.env.VITE_CANONIC_URL,
 });
 
 axios.interceptors.request.use(authRequestInterceptor);
@@ -25,6 +26,7 @@ axios.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    console.error(error);
     const message = error.response?.data?.message || error.message;
     useNotificationStore.getState().addNotification({
       type: 'error',
@@ -35,13 +37,16 @@ axios.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+console.tap = (v, ...rest) => (console.log(v, ...rest), v);
+export const axiosGQL = (query, variables) =>
+  axios
+    .post('/', {
+      query,
+      variables,
+    })
+    .then(console.tap)
+    .catch(console.error);
 
-export const axiosGQL = (query, variables) => {
-  axios.post('', {
-    query,
-    variables,
-  });
-};
 /**
  * @param {string} endpoint
  * @param {RequestInit} requestInit

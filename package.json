@@ -16,6 +16,7 @@
     "@supabase/supabase-js": "^1.33.3",
     "axios": "^0.26.1",
     "cross-undici-fetch": "^0.1.28",
+    "cypress": "^9.5.3",
     "dotenv": "^16.0.0",
     "gradient-string": "^2.0.0",
     "graphql": "^16.3.0",
